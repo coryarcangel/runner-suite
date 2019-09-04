@@ -9,8 +9,8 @@ black = device('FA7B71A02648',"_kxd._8691","pixel2",True)
 
 white.openInstagram()
 black.openInstagram()
-gameLength = 3#46
-for x in xrange(0,gameLength):
+gameLength = 46
+for x in xrange(0,gameLength-1):
     (white,black)[x % 2 == 0].makeMove(x)
     print "made move "+str(x)
     pass
