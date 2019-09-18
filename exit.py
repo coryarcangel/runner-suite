@@ -20,4 +20,3 @@ def exitGracefully(signum, frame):
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, exitGracefully)
 
-print(__name__)

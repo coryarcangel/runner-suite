@@ -13,6 +13,7 @@ package = 'com.instagram.android'
 accounts = ["arc_chess_slash","arc_chess_vai","arc_chess_axl","arcangel_insta_chess_black","arcangel_insta_chess_white"]
 accounts = ["millionaire_mentor","guyfieri","piersmorgan","billmaher","makeupaoa","glowrecipe","earth","glossier","thisisbillgates","tigerwoods","taylorswift","officialspikelee","mohamedbinzayed","speakerpelosi","nytimes","ambaliving","iquitsugar","deliciouslyella","snake.wild","yankees","disney","newtgingrich","leadervladimirputin","generalelectric","ivankatrump","bundeskanzlerin","franciscus","reductress","ikeausa","katyperry","theonion","burgersbae","pitbull","daquan","eminem","jeff_seid","ladyantebellum","thomasrhettakins","billyraycyrus","world_record_egg","icet","danaperino","smoothiebowls","shanedawson","tanamongeau","jakepaul","jaycutler","kristincavallari","allbirds","kfc","loveandlemons","alisoneroman","dollyoatmeal","tulsigabbard","oliviapalermo","xychelsea87","edwardsnowdenofficial","jerrygagosian","adamsandler","hillaryclinton","zuck","therock","awkwafina","alexhonnold","mistyonpointe","kaisafit","hannahbronfman","sjanaelise","eddiehallwsm","vp","beyonce","jimmykimmel","diet_prada","chaninicholas","ocasio2018","nike","ecogoddess","toto_ddung_ee","yogitea","burgerking","tjmaxx","abercrombie","foxnews","tuckercarlsontonight","cnn,","jordanpeele","horsecontent","loveandlemons","alisoneroman","dollyandoatmeal","tulsigabbard","aimeesong","oliviapalermo","xychelsea87","jerrygagosian","fuckjerry","xeniadunkinindia","wendys","panerabread","hypebeast","marianodivaio","breadfaceblog","kanyesundayservices","justinbieber","kimkardashian","marniethedog","chiaraferragnicollection","adrianalimia","zoella","larenconrad","therock","pieraluisa","bichon_tori","michelleobama","glennbeck","weworewhat","travisscott","selenagomez","tinykitchentm","mariekondo","tomilahren","kyliejenner","kayla_itsines","iamcardib"]
 accounts = ["millionaire_mentor","guyfieri","piersmorgan","billmaher","makeupaoa","glowrecipe","earth","glossier","thisisbillgates","tigerwoods","taylorswift","mohamedbinzayed","speakerpelosi","nytimes","ambaliving","deliciouslyella","yankees","disney","newtgingrich","leadervladimirputin","generalelectric","ivankatrump","bundeskanzlerin","franciscus","ikeausa","katyperry","burgersbae","pitbull","eminem","jeff_seid","ladyantebellum","thomasrhettakins","billyraycyrus","danaperino","smoothiebowls","shanedawson","tanamongeau","jakepaul","jaycutler","kristincavallari","allbirds","kfc","loveandlemons","alisoneroman","tulsigabbard","oliviapalermo","adamsandler","hillaryclinton","zuck","therock","kaisafit","sjanaelise","eddiehallwsm","vp","jimmykimmel","ocasio2018","nike","yogitea","burgerking","tjmaxx","abercrombie","foxnews","tuckercarlsontonight","cnn","tulsigabbard","oliviapalermo","wendys","panerabread","marianodivaio","justinbieber","kimkardashian","marniethedog","zoella","laurenconrad","therock","pieraluisa","bichon_tori","michelleobama","glennbeck","weworewhat","selenagomez","mariekondo","kyliejenner","kayla_itsines","tifforelie","redskins","raiders","packers","steelers","lakers","chicagobulls","orlandomagic","kingjames","martingarrix","davidguetta","avicii","swedishhousemafia","garthbrooks","dunkin","crackerbarrel","louiselinton/?","lindsaylohan","pashaclubofficial","burgerking","baskinrobbins","siemens","equinox","saudi_aramco","conocophillips","exxonmobil","kochindustriesinc","ted","equinor","jack_astors","hooters","nascar","hollywoodreporter","carrottoplive","britneyspears","diddy","bwwings","shakeshack","amazon","apple","applebees","appletv","netflix","ford","bmw","shaniatwain","norwegiancruiseline","carnival","jeffkoons","buzzfeedtasty","teslamotors","nypost","#hotgirlsummer","#squadgoals","#setlife","#vanlife","#earth","#foodporn","#sunset","#blessed","#dunk"]
+accounts = ["#TheRiseOfSkywalker","abercrombie","amazon","apple","applebees","dominos","dunkin","hooters","kfc","nascar","netflix","nike","panerabread","pizzahut","soulcycle","ted","walmart","wendys","#taylorswift","adamsandler","angelinajolieofficial","blakelively","caradelevingne","carrottoplive","chrissyteigen","gigihadid","guyfieri","jimmykimmel","johnlegend","justinbieber","katyperry","kellyripa","kimkardashian","kyliejenner","lindsaylohan","pitbull","reesewitherspoon","richardbranson","richforever","ryanseacrest","selenagomez","billyraycyrus","garthbrooks","thetimmcgraw","thomasrhettakins","#nascar","conocophillips","disney","equinor","equinox","exxonmobil","generalelectric","kochindustriesinc","norwegiancruiseline","saudi_aramco","siemens","teslamotors","martingarrix","swedishhousemafia","allbirds","skims","trinekjaer_","weworewhat","supremenewyork","double3xposure","kaisafit","kayla_itsines","#blessed","#earth","#foodporn","#hotgirlsummer","#mealprepsunday","#setlife","#squadgoals","#sunset","billmaher","glossier","makeupaoa","eddiehallwsm","jeff_seid","marianodivaio","millionaire_mentor","leadervladimirputin","thisisbillgates","zuck","glennbeck","ivankatrump","louiselinton","chicagobulls","lakers","orlandomagic","packers"]
 moves = ["f3","Nf6","a4","e6","Nc3","c6","Kf2","Qb6+","d4","checkmate"]
 moves = ["f3","Nf6","a4","e6","Nc3","c6","Kf2","Qb6+","d4","Be7","Qd3","h5","Bd2","Qxb2","Re1","a5","Nd1","Qb6","Be3","Qb4","c3","Qxa4","Nb2","Qb3","d5","Qxb2","dxe6","dxe6","Nh3","Rg8","Bf4","Qb6+","Kg3","h4+","Kxh4","Nh7+","Kg3","f5","Bxb8","Rxb8","Qd1","Qe3","Qa4","Qe5+","f4","Qe3#"]
 random.shuffle(accounts)
@@ -95,6 +96,7 @@ class device():
     	self.device.shell("input tap "+str(point[0])+" "+str(point[1]))
 
     def search(self,account='somethin idk'):
+        print "searching "+account
         self.device.drag((319,1732),(319,1732),1,300)
         self.sleep(2)
         self.touch("searchClear")
@@ -102,25 +104,33 @@ class device():
         self.sleep(3)
         self.touch("firstResult")
         self.sleep(4)
-    def choosePost(self):
+    def choosePost(self,choice=-1):
         if(self.model=="a30"):
     	   self.touchPoint((str(30+random.randint(0,970)),str(1390+random.randint(1,650))))
+        elif(choice>-1):
+            self.touchPoint((str(100+320*(choice % 3)),str(1610)))
+            print "choosing at " +str(choice)+ " "+str(320*(choice % 3))
         else:
             self.touchPoint((str(300*random.randint(1,3)),str(1610))) #this value is 1610 bc 1600 sometimes went between links to posts.
     def comment(self,text="my move :)",last=False):
+        print "commenting "+text
         self.choosePost()
         time.sleep(4)
         self.touchCommentButton()# 1550 1665
         time.sleep(5)
-        self.type("@_")
-        time.sleep(.5)
+        self.type("@__kxd")
+        time.sleep(1)
         self.touch("confirmTag")
         time.sleep(.2)
         self.type(text.replace(" ","%s"),True)
         time.sleep(2)
         if(last == True):
             self.typeHeartEmoji();
+
+        ###/////////
         self.touch("submitComment")
+        ###/////////
+
         time.sleep(4)
         if(last == True):
             self.touch("backToProfile")
@@ -132,7 +142,10 @@ class device():
 
     def checkNotification(self):
         self.touch("notification")
-        time.sleep(5)
+        time.sleep(1)
+        # self.scrollY(200,800,.2)
+        time.sleep(4)
+        time.sleep(.5)
         # self.touch("firstNotification")
         # time.sleep(6.5)
         # if(self.model=="a30"):
@@ -166,20 +179,12 @@ class device():
 
     def touch(self,name, touchType="DOWN_AND_UP"):
         self.device.shell("input tap "+str(self.tapLocations[self.model][name][0])+" "+str(self.tapLocations[self.model][name][1]))
-        if(self.verbose):
-            print "Tapped "+name+" with "+touchType+"."
     def makeMove(self,moveCount):
         if(moveCount != 0):
             self.checkNotification()
         self.search(accounts.pop())
-        self.comment(moves.pop(0))
-    def makeFinalMove(self,moveCount):
-        self.checkNotification()
-        self.touch("backToProfile")
-        time.sleep(1)
-        self.search(accounts.pop())
-        self.comment(moves.pop(0),True)
-        self.touch("homePage")
+        self.comment(moves.pop(0), len(moves) == 0)
+
 
     def makeTestMove(self,moveCount):
         self.search(accounts.pop())

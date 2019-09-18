@@ -1,0 +1,2 @@
+adb -s FA7B71A02648 pull /storage/emulated/0/AzRecorderFree/AzVideoEdit/20190917_145909.mp4 ~/Downloads
+adb -s FA79F1A04959 pull /storage/emulated/0/AzRecorderFree/AzVideoEdit/20190917_145909.mp4 ~/Downloads/20190917_145909-2.mp4
