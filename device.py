@@ -1,3 +1,8 @@
+#
+# a low-level monkeyrunner class that does basic phone stuff like clicking,
+# scrolling, and typing.
+#
+
 from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice, MonkeyImage
 import time
 import sys
@@ -5,9 +10,7 @@ import random
 import signal
 import subprocess
 
-package = 'com.instagram.android'
-
-class device():
+class device(object):
     def __init__(self,deviceId,model="pixel2", verbose=False):
         self.deviceId = deviceId
         self.model = model
@@ -25,9 +28,6 @@ class device():
     def touchPoint(self,point):
         self.device.shell("input tap "+str(point[0])+" "+str(point[1]))
 
-    def sleep(self,amt):
-        time.sleep(amt)
-
     def type(self,text,slow=False):
         if(slow):
             text = text.replace("%s"," ")
@@ -37,15 +37,23 @@ class device():
             self.device.shell('input text "'+text+'"')
         if(self.verbose):
             print "Typed "+text+"."
-    
-    def scrollY(self,start,end,duration=1):
+
+    def scroll(self,start,end,duration=1):
         self.device.drag ((500,start),(500,end),duration,300)
         if(self.verbose):
             print "Scrolled from y="+str(start)+" to y="+str(end)
         return
 
-
     def typeHeartEmoji(self):
+            self.type(" ")
+            self.touch("emojis")
+            time.sleep(2)
+            self.touch("heartEmoji")
+            time.sleep(2)
+            self.touch("textChars")
+            time.sleep(1)
+
+    def typeRandomEmoji(self, amount):
             self.type(" ")
             self.touch("emojis")
             time.sleep(2)

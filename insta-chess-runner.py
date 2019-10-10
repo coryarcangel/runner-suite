@@ -1,44 +1,51 @@
-#old samsung galaxy phone codes: R28M421N22Y / R28M421MT5B
-from instabot import instabot
+#
+# creates two special chess instabots, and uses accounts and moves
+# to perform a match.
+#
+
+import time
+from instabot import Instabot
 from chessgame import accounts, moves
+INITAL_MOVE_COUNT = len(moves)
 
-class ChessPlayer(instabot):
-	def __init__(self,deviceId,model="pixel2", opponent,verbose=False):
-		super().__init__()
+class ChessPlayer(Instabot):
+	def __init__(self,deviceId, opponent,moves,model="pixel2",verbose=False):
+		super(ChessPlayer,self).__init__(deviceId,model,verbose)
+		self.opponent = opponent
 
-	def comment(self,account,text="my move :)",last=False):
-        print "commenting "+text
-        self.choosePost()
-        time.sleep(4)
-        self.touchCommentButton()# 1550 1665
-        time.sleep(5)
-        self.type("@"+account[0:4])
-        time.sleep(1)
-        self.touch("confirmTag")
-        time.sleep(.2)
-        self.type(text.replace(" ","%s"),True)
-        time.sleep(2)
-        if(last == True):
-            self.typeHeartEmoji();
-        self.touch("submitComment")
-        time.sleep(4)
-        self.touch("backToProfile")
-        time.sleep(2)
+	def comment(self,text="my move :)",last=False):
+		self.chooseRandomPost()
+		time.sleep(4)
+		self.touchCommentButton()
+		time.sleep(5)
+		self.type("@"+self.opponent[0:4])
+		time.sleep(1)
+		self.touch("confirmTag")
+		time.sleep(.2)
+		self.type(text.replace(" ","%s"),True)
+		time.sleep(2)
+		if(last == True):
+			self.typeHeartEmoji();
+		# self.touch("submitComment")
+		time.sleep(4)
+		self.touch("backToProfile")
+		time.sleep(2)
+		pass
 
-    def makeMove(self,account,move,final):
-        if(moveCount != 0):
-            self.checkNotification()
-        self.search(account)
-        self.comment(account,move, final)
+	def makeMove(self):
+		if(len(moves) != INITAL_MOVE_COUNT):
+			self.checkNotification()
+		self.search(accounts.pop())
+		print "moves: " + str(len(moves))
+		self.comment(moves.pop(0), len(moves) == 0)
+		pass
 
+white = ChessPlayer('FA79F1A04959', "__kxd._7881",moves,"pixel2",True)
+black = ChessPlayer('FA7B71A02648',"__kxd._8691",moves,"pixel2",True)
 
-white = device('FA79F1A04959', "__kxd._7881","pixel2",True)
-black = device('FA7B71A02648',"__kxd._8691","pixel2",True)
+for x in xrange(0,INITAL_MOVE_COUNT):
+    (white,black)[x % 2 == 0].makeMove()
 
-for x in xrange(0,len(moves)):
-    (white,black)[x % 2 == 0].makeMove(accounts[x],moves.pop(0), len(moves) == 0)
-    print "made move "+str(x)
-
+#end of game
 white.touch("homePage")
 black.touch("homePage")
-

@@ -1,8 +1,15 @@
-from device import device
+#
+#a general purpose instagram bot class that lets you do common instagram stuff.
+#
 
-class instabot(device):
+from device import device
+import random
+import time
+package = 'com.instagram.android'
+
+class Instabot(device):
     def __init__(self,deviceId,model="pixel2", verbose=False):
-        self.model = model
+        super(Instabot,self).__init__(deviceId,model,verbose)
         self.tapLocations.update({
             "a30": {
               "search": (300, 2145),
@@ -38,12 +45,11 @@ class instabot(device):
               "forceBack":(275,1870)
             }
         })
-        self.gameLength = len(moves)
         # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the process
-        signal.signal(signal.SIGINT, self.exitGracefully)
         if(self.verbose):
             print "Connected to device "+deviceId+"."
         self.openInstagram()
+        print "wtffff"
 
     def openInstagram(self):
         activity = 'com.instagram.mainactivity.MainActivity'
@@ -61,8 +67,8 @@ class instabot(device):
         self.touch("firstResult")
         self.sleep(4)
 
-    def comment(self,account,toWhom,text="my move :)",last=False):
-        self.choosePost()
+    def comment(self,account,toWhom,text="nice pic",last=False):
+        self.chooseRandomPost()
         time.sleep(4)
         self.touchCommentButton()# 1550 1665
         time.sleep(5)
@@ -79,7 +85,7 @@ class instabot(device):
         self.touch("backToProfile")
         time.sleep(2)
 
-    def choosePost(self,choice=-1):
+    def chooseRandomPost(self,choice=-1):
         if(self.model=="a30"):
            self.touchPoint((str(30+random.randint(0,970)),str(1390+random.randint(1,650))))
         elif(choice>-1):
@@ -87,17 +93,11 @@ class instabot(device):
             print "choosing at " +str(choice)+ " "+str(320*(choice % 3))
         else:
             #this value is 1610 bc 1600 sometimes tapped right in between posts
-            self.touchPoint((str(300*random.randint(1,3)),str(1610))) 
+            self.touchPoint((str(300*random.randint(1,3)),str(1610)))
 
     def checkNotification(self):
         self.touch("notification")
         time.sleep(5)
-
-    def makeMove(self,account,toWhom,move,final):
-        if(moveCount != 0):
-            self.checkNotification()
-        self.search(account)
-        self.comment(account,move, final)
 
     def touchCommentButton(self):
         inBlack = False
@@ -129,10 +129,10 @@ class instabot(device):
                 if(isWhiteAbove and isWhiteInside and isWhiteUnder):
                     target = (blackList[i+1]+blackList[i])/2
         if(target == 0):
-            self.scrollY(770,500)
+            self.scroll(770,500)
             time.sleep(1)
             self.touchCommentButton()
         print "the target is "+str(target)
         time.sleep(.1)
         if(target != 0):
-            self.device.shell("input tap "+str(180)+" "+str(target))  
+            self.device.shell("input tap "+str(180)+" "+str(target))
