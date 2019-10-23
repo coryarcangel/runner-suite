@@ -99,7 +99,7 @@ class Instabot(device):
         self.touch("notification")
         time.sleep(5)
 
-    def touchCommentButton(self):
+    def touchCommentButton(self,xOffset=0):
         inBlack = False
         image = self.device.takeSnapshot()
         sub_image = image.getSubImage((180,500,20,1400))
@@ -135,4 +135,8 @@ class Instabot(device):
         print "the target is "+str(target)
         time.sleep(.1)
         if(target != 0):
-            self.device.shell("input tap "+str(180)+" "+str(target))
+            self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
+            return target
+
+    def touchLikeButton(self):
+        return self.touchCommentButton(-60)
