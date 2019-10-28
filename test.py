@@ -7,4 +7,4 @@ from instabot import Instabot
 # black = device('FA79F1A04959', "_kxd._7881","pixel2",True)
 white = Instabot('FA7B71A02648',"pixel2",True)
 
-print white
+white.touchLikeButton()

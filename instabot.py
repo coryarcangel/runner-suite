@@ -67,20 +67,12 @@ class Instabot(device):
         self.touch("firstResult")
         self.sleep(4)
 
-    def comment(self,account,toWhom,text="nice pic",last=False):
-        self.chooseRandomPost()
-        time.sleep(4)
+    def comment(self,text="Nice picture",last=False):
         self.touchCommentButton()# 1550 1665
         time.sleep(5)
-        self.type("@"+account[0:4])
-        time.sleep(1)
-        self.touch("confirmTag")
-        time.sleep(.2)
         self.type(text.replace(" ","%s"),True)
         time.sleep(2)
-        if(last == True):
-            self.typeHeartEmoji();
-        self.touch("submitComment")
+        # self.touch("submitComment")
         time.sleep(4)
         self.touch("backToProfile")
         time.sleep(2)
@@ -137,6 +129,26 @@ class Instabot(device):
         if(target != 0):
             self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
             return target
+    def scrollToNextPost(self):
+      self.scroll(500,50,.3)
+      image = self.device.takeSnapshot()
+      final = 0
+      whiteJustEnded = False
+      whiteStreak = 0
+      # snapshot of rightmost bar on screen, starting from the likely middle of current image.
+      # we've scrolled down 400 which basically guarantees we have revealed the next post
+      sub_image = image.getSubImage((1075,0,1,1600))
+      for x in xrange(0,1600):
+        pixel = sub_image.getRawPixel(0,x)
+        isWhite =  pixel[1] >= 250 and pixel[2] >= 250 and pixel[3] >= 250
+        if(whiteStreak > 100 and isWhite == False):
+          final = x
+        if(isWhite == False):
+          whiteStreak = 0
+        else:
+          whiteStreak = whiteStreak + 1
+      # scroll the rest of the way
+      self.scroll(final-210,0)
 
     def touchLikeButton(self):
         return self.touchCommentButton(-60)
