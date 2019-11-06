@@ -42,6 +42,7 @@ class Instabot(device):
               "textChars": (75,1750),
               "homePage": (980,1733),
               "videoExit": (330,425),
+              "backToTopPost" : (220,129),
               "forceBack":(275,1870)
             }
         })
@@ -60,12 +61,12 @@ class Instabot(device):
 
     def search(self,account='no_account_provided!'):
         self.device.drag((319,1732),(319,1732),1,300)
-        self.sleep(2)
+        time.sleep(2)
         self.touch("searchClear")
         self.type(account)
-        self.sleep(3)
+        time.sleep(3)
         self.touch("firstResult")
-        self.sleep(4)
+        time.sleep(4)
 
     def comment(self,text="Nice picture",last=False):
         self.touchCommentButton()# 1550 1665
@@ -94,15 +95,15 @@ class Instabot(device):
     def touchCommentButton(self,xOffset=0):
         inBlack = False
         image = self.device.takeSnapshot()
-        sub_image = image.getSubImage((180,500,20,1400))
+        sub_image = image.getSubImage((180,700,20,1200))
         blackList = []
         #Finds the vertical sequence of black and white pixels that match the comment button.
-        for x in xrange(4,1400):
+        for x in xrange(4,1200):
             px = sub_image.getRawPixel(1,x)
             #if the current pixel is black
             if(px[1] < 50 and px[2] < 50 and px[3] < 50):
                 if not inBlack:
-                    blackList.append(x+500)
+                    blackList.append(x+700)
                 inBlack = True
             else:
                 inBlack = False
@@ -112,12 +113,12 @@ class Instabot(device):
             distanceBetweenBlack = abs(blackList[i+1]-blackList[i])
             if(abs(distanceBetweenBlack-50))<2 and target == 0:
                 print "blacklist entry is "+str(blackList[i])
-                abovepx = sub_image.getRawPixel(1,blackList[i]-10-500)
-                isWhiteAbove = abovepx[1] > 250 and abovepx[2] > 250 and abovepx[3] > 250
-                middlepx = sub_image.getRawPixel(1,blackList[i]-10-500)
-                isWhiteInside = middlepx[1] > 250 and middlepx[2] > 250 and middlepx[3] > 250
-                underpx = sub_image.getRawPixel(1,blackList[i]-10-500)
-                isWhiteUnder = underpx[1] > 250 and underpx[2] > 250 and underpx[3] > 250
+                abovepx = sub_image.getRawPixel(1,blackList[i]-10-700)
+                isWhiteAbove = abovepx[1] > 252 and abovepx[2] > 252 and abovepx[3] > 252
+                middlepx = sub_image.getRawPixel(1,blackList[i]-10-700)
+                isWhiteInside = middlepx[1] > 252 and middlepx[2] > 252 and middlepx[3] > 252
+                underpx = sub_image.getRawPixel(1,blackList[i]-10-700)
+                isWhiteUnder = underpx[1] > 252 and underpx[2] > 252 and underpx[3] > 252
                 if(isWhiteAbove and isWhiteInside and isWhiteUnder):
                     target = (blackList[i+1]+blackList[i])/2
         if(target == 0):
@@ -129,26 +130,36 @@ class Instabot(device):
         if(target != 0):
             self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
             return target
-    def scrollToNextPost(self):
-      self.scroll(500,50,.3)
+    def scrollToNextPost(self,scrollAmt=None):
+      self.scroll(scrollAmt if scrollAmt else 650,50,.3)
       image = self.device.takeSnapshot()
       final = 0
       whiteJustEnded = False
       whiteStreak = 0
+      maxWhiteStreak = 0
       # snapshot of rightmost bar on screen, starting from the likely middle of current image.
       # we've scrolled down 400 which basically guarantees we have revealed the next post
-      sub_image = image.getSubImage((1075,0,1,1600))
+      sub_image = image.getSubImage((1000,0,80,1600))
+      sub_image.writeToFile("/Users/jerry/instachess/last-scan.png")
       for x in xrange(0,1600):
-        pixel = sub_image.getRawPixel(0,x)
-        isWhite =  pixel[1] >= 250 and pixel[2] >= 250 and pixel[3] >= 250
-        if(whiteStreak > 100 and isWhite == False):
+        pixel = sub_image.getRawPixel(65,x)
+        isWhite =  pixel[1] >= 254 and pixel[2] >= 254 and pixel[3] >= 254
+        # debug line
+        # print "y: "+ str(x) + ", " + str(pixel) + "is white: "+str(isWhite) + ", white streak: "+str(whiteStreak)
+        if(whiteStreak > 450 and isWhite == False):
           final = x
+        if(whiteStreak > maxWhiteStreak):
+          maxWhiteStreak = whiteStreak
         if(isWhite == False):
           whiteStreak = 0
         else:
           whiteStreak = whiteStreak + 1
       # scroll the rest of the way
+      if(final == 0 and whiteStreak > 450):
+        self.scrollToNextPost(200)
+      print "whiteStreak"+str(maxWhiteStreak)
       self.scroll(final-210,0)
+      return final
 
     def touchLikeButton(self):
         return self.touchCommentButton(-60)

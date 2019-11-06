@@ -12,7 +12,7 @@ class ChessPlayer(Instabot):
 	def __init__(self,deviceId, opponent,moves,model="pixel2",verbose=False):
 		super(ChessPlayer,self).__init__(deviceId,model,verbose)
 		self.opponent = opponent
-
+	# overrides comment method to send comment @ opponent and pull next move.
 	def comment(self,text="my move :)",last=False):
 		self.chooseRandomPost()
 		time.sleep(4)
@@ -26,7 +26,7 @@ class ChessPlayer(Instabot):
 		time.sleep(2)
 		if(last == True):
 			self.typeHeartEmoji();
-		# self.touch("submitComment")
+		self.touch("submitComment")
 		time.sleep(4)
 		self.touch("backToProfile")
 		time.sleep(2)
@@ -47,5 +47,7 @@ for x in xrange(0,INITAL_MOVE_COUNT):
     (white,black)[x % 2 == 0].makeMove()
 
 #end of game
+
+(white,black)[INITAL_MOVE_COUNT % 2 == 0].checkNotification()
 white.touch("homePage")
 black.touch("homePage")
