@@ -47,11 +47,14 @@ class device(object):
     def typeHeartEmoji(self):
             self.type(" ")
             self.touch("emojis")
-            time.sleep(2)
+            time.sleep(1)
+            self.touch("emojisTab")
+            time.sleep(1)
             self.touch("heartEmoji")
             time.sleep(2)
             self.touch("textChars")
             time.sleep(1)
+            print "heart emoji"
 
     def typeRandomEmoji(self, amount):
             self.type(" ")

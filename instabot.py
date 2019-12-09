@@ -37,8 +37,9 @@ class Instabot(device):
               "notification": (750,1730),
               "firstNotification": (773,587),
               "confirmTag": (500,125),
-              "emojis" :(345,1716),
-              "heartEmoji": (991,1368),
+              "emojis" :(324,1717),
+              "heartEmoji": (424,1412),
+              "emojisTab": (718,1110),
               "textChars": (75,1750),
               "homePage": (980,1733),
               "videoExit": (330,425),
@@ -131,7 +132,7 @@ class Instabot(device):
             self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
             return target
     def scrollToNextPost(self,scrollAmt=None):
-      self.scroll(scrollAmt if scrollAmt else 650,50,.3)
+      self.scroll(scrollAmt if scrollAmt else 660,50,.35)
       image = self.device.takeSnapshot()
       final = 0
       whiteJustEnded = False
@@ -140,7 +141,7 @@ class Instabot(device):
       # snapshot of rightmost bar on screen, starting from the likely middle of current image.
       # we've scrolled down 400 which basically guarantees we have revealed the next post
       sub_image = image.getSubImage((1000,0,80,1600))
-      sub_image.writeToFile("/Users/jerry/instachess/last-scan.png")
+      sub_image.writeToFile("/Users/vai/Projects/insta-chess-mobile/last-scan.png")
       for x in xrange(0,1600):
         pixel = sub_image.getRawPixel(65,x)
         isWhite =  pixel[1] >= 254 and pixel[2] >= 254 and pixel[3] >= 254

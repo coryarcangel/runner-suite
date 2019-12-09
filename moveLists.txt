@@ -210,9 +210,49 @@ Ke3
 Nf5+
 Ke2
 Nd4+
-
 checkmate
-
+0) Nf3
+1) e6
+2) Ne5
+3) g5
+4) c4
+5) Bd6
+6) Nd3
+7) Bxh2
+8) Rxh2
+9) b5
+10) cxb5
+11) d5
+12) a3
+13) Bd7
+14) a4
+15) Bxb5
+16) axb5
+17) Qd6
+18) Rh1
+19) Qf4
+20) Nxf4
+21) gxf4
+22) Na3
+23) a6
+24) Qa4
+25) axb5
+26) Qxa8
+27) Kf8
+28) Qxb8+
+29) Kg7
+30) Nxb5
+31) c6
+32) Nc3
+33) h5
+34) Ra4
+35) f3
+36) gxf3
+37) Rh7
+38) Rg1+
+39) Kh6
+40) d4#
+checkmate
 #DONE
 f3
 Nf6
