@@ -64,6 +64,7 @@ class Instabot(device):
         self.device.drag((319,1732),(319,1732),1,300)
         time.sleep(2)
         self.touch("searchClear")
+        self.touch("typeBar")
         self.type(account)
         time.sleep(3)
         self.touch("firstResult")
@@ -99,7 +100,7 @@ class Instabot(device):
         sub_image = image.getSubImage((180,700,20,1200))
         blackList = []
         #Finds the vertical sequence of black and white pixels that match the comment button.
-        for x in xrange(4,1200):
+        for x in xrange(10,1200):
             px = sub_image.getRawPixel(1,x)
             #if the current pixel is black
             if(px[1] < 50 and px[2] < 50 and px[3] < 50):
@@ -112,6 +113,7 @@ class Instabot(device):
         target = 0;
         for i in range(len(blackList)-1):
             distanceBetweenBlack = abs(blackList[i+1]-blackList[i])
+            # make sure space btw black lines matches comment button. match
             if(abs(distanceBetweenBlack-50))<2 and target == 0:
                 print "blacklist entry is "+str(blackList[i])
                 abovepx = sub_image.getRawPixel(1,blackList[i]-10-700)
@@ -125,7 +127,7 @@ class Instabot(device):
         if(target == 0):
             self.scroll(770,500)
             time.sleep(1)
-            self.touchCommentButton()
+            self.touchCommentButton(xOffset)
         print "the target is "+str(target)
         time.sleep(.1)
         if(target != 0):
@@ -163,4 +165,5 @@ class Instabot(device):
       return final
 
     def touchLikeButton(self):
+        print "liked"
         return self.touchCommentButton(-60)
