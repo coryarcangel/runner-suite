@@ -40,6 +40,9 @@ class ChessPlayer(Instabot):
 		self.comment(moves.pop(0), len(moves) == 0)
 		pass
 
+
+
+
 white = ChessPlayer('FA79F1A04959', "__kxd._7881",moves,"pixel2",True)
 black = ChessPlayer('FA7B71A02648',"__kxd._8691",moves,"pixel2",True)
 

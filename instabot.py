@@ -133,6 +133,7 @@ class Instabot(device):
         if(target != 0):
             self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
             return target
+            
     def scrollToNextPost(self,scrollAmt=None):
       self.scroll(scrollAmt if scrollAmt else 660,50,.35)
       image = self.device.takeSnapshot()

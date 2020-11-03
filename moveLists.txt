@@ -1,63 +1,4 @@
-Nf3
-Nc6
-h3
-h5
-Nh2
-Nb8
-e4
-h4
-d3
-d6
-Qd2
-Rh5
-f4
-Rb5
-Be2
-Be6
-Kf2
-Nd7
-Nf3
-Rc5
-Nxh4
-b6
-Qb4
-Rxc2
-Rg1
-g6
-Nxg6
-fxg6
-Kg3
-Rxe2
-Nc3
-Rc2
-Ne2
-Rxe2
-Rf1
-g5
-fxg5
-Bg7
-a3
-Be5+
-Kh4
-Rxg2
-Qb5
-Bg3+
-Kh5
-c6
-Qxc6
-Bf7+
-g6
-Bxg6+
-Kxg6
-Bh4+
-Kf5
-e6+
-Kxe6
-Qe7+
-Kf5
-Qf7#
-checkmate
-f3
+ff3
 h6
 Nc3
 h5
@@ -211,49 +152,20 @@ Nf5+
 Ke2
 Nd4+
 checkmate
-0) Nf3
-1) e6
-2) Ne5
-3) g5
-4) c4
-5) Bd6
-6) Nd3
-7) Bxh2
-8) Rxh2
-9) b5
-10) cxb5
-11) d5
-12) a3
-13) Bd7
-14) a4
-15) Bxb5
-16) axb5
-17) Qd6
-18) Rh1
-19) Qf4
-20) Nxf4
-21) gxf4
-22) Na3
-23) a6
-24) Qa4
-25) axb5
-26) Qxa8
-27) Kf8
-28) Qxb8+
-29) Kg7
-30) Nxb5
-31) c6
-32) Nc3
-33) h5
-34) Ra4
-35) f3
-36) gxf3
-37) Rh7
-38) Rg1+
-39) Kh6
-40) d4#
-checkmate
+
+
+
+
+
+
+
+
+
+
+
+
 #DONE
+
 f3
 Nf6
 a4
@@ -351,4 +263,109 @@ Ke1
 Qb1+
 Kf2
 Qf5+
+checkmate
+Nf3
+Nc6
+h3
+h5
+Nh2
+Nb8
+e4
+h4
+d3
+d6
+Qd2
+Rh5
+f4
+Rb5
+Be2
+Be6
+Kf2
+Nd7
+Nf3
+Rc5
+Nxh4
+b6
+Qb4
+Rxc2
+Rg1
+g6
+Nxg6
+fxg6
+Kg3
+Rxe2
+Nc3
+Rc2
+Ne2
+Rxe2
+Rf1
+g5
+fxg5
+Bg7
+a3
+Be5+
+Kh4
+Rxg2
+Qb5
+Bg3+
+Kh5
+c6
+Qxc6
+Bf7+
+g6
+Bxg6+
+Kxg6
+Bh4+
+Kf5
+e6+
+Kxe6
+Qe7+
+Kf5
+Qf7#
+checkmate
+
+
+
+
+0) Nf3
+1) e6
+2) Ne5
+3) g5
+4) c4
+5) Bd6
+6) Nd3
+7) Bxh2
+8) Rxh2
+9) b5
+10) cxb5
+11) d5
+12) a3
+13) Bd7
+14) a4
+15) Bxb5
+16) axb5
+17) Qd6
+18) Rh1
+19) Qf4
+20) Nxf4
+21) gxf4
+22) Na3
+23) a6
+24) Qa4
+25) axb5
+26) Qxa8
+27) Kf8
+28) Qxb8+
+29) Kg7
+30) Nxb5
+31) c6
+32) Nc3
+33) h5
+34) Ra4
+35) f3
+36) gxf3
+37) Rh7
+38) Rg1+
+39) Kh6
+40) d4#
 checkmate

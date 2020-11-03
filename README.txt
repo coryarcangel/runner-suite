@@ -1,6 +1,6 @@
 How to set up instagram chess bot androids on a new computer:
-1) Download + install + open android studio
-2) Download + install + open android file transfer as well
+1) Download + install + open android studio   https://developer.android.com/studio/
+2) Download + install + open android file transfer https://www.android.com/filetransfer/
 3) Add /Users/henry/Library/Android/sdk/platform-tools and /Users/henry/Library/Android/sdk/tools.bin to your path. one way to do this is edit ~/.bash_profile(on mac) and add this somewhere in it:
 
 export PATH="$PATH:/Users/[your user name]/Library/Android/sdk/tools/bin"
