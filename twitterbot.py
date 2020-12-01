@@ -7,8 +7,9 @@ import random
 import time
 package = 'com.twitter.android'
 
-heart = MonkeyRunner.loadImageFromFile("/Users/vai/Projects/insta-chess-mobile/heart.png")
-red_heart = MonkeyRunner.loadImageFromFile("/Users/vai/Projects/insta-chess-mobile/red-heart.png")
+# TODO replace /Users/vai/Projects/
+heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/heart.png")
+red_heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/red-heart.png")
 
 class Twitterbot(device):
     def __init__(self,deviceId,model="pixel2", verbose=False):
@@ -54,7 +55,7 @@ class Twitterbot(device):
             print "Connected to device "+deviceId+"."
         self.openTwitter()
         print "connected to twitter"
-    
+
     heart_x_offset = 655
 
     def openTwitter(self):
@@ -88,6 +89,4 @@ class Twitterbot(device):
           self.touchPoint([str(self.heart_x_offset+20),str(heart_locations[x]+20)])
           time.sleep(.1)
       #we return the lowest down heart location, or else the bottom of the scrollable area
-      return heart_locations if len(heart_locations)>0 else [700]#1342
-
-    
+      return heart_locations if len(heart_locations)>0 else [900]#1342
