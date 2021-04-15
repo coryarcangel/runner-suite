@@ -8,8 +8,8 @@ import time
 package = 'com.twitter.android'
 
 # TODO replace /Users/vai/Projects/
-heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/heart.png")
-red_heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/red-heart.png")
+heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/data/heart.png")
+red_heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/data/red-heart.png")
 
 class Twitterbot(device):
     def __init__(self,deviceId,model="pixel2", verbose=False):
