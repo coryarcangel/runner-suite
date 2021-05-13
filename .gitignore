@@ -1,3 +1,4 @@
 runs/*
 .DS_Store
 *$py.class
+*.pyc
