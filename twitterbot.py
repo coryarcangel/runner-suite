@@ -70,9 +70,8 @@ class Twitterbot(device):
       height = 1750
       heart_height = 37
       heart_width = 39
-      sub_image = image.getSubImage((643,0,39,height))
+      sub_image = image.getSubImage((643,0,39,height))  #(643,0,39,height)
       the_heart_image = heart if like else red_heart
-      # sub_image.writeToFile("/Users/vai/Projects/insta-chess-mobile/last-scan.png")
       hits = []
       for x in xrange(1,height-heart_height-1):
         heart_test = sub_image.getSubImage((0,x,heart_width,heart_height))
@@ -82,11 +81,35 @@ class Twitterbot(device):
       print "detected hits at" + str(hits)
       return hits
 
+    def testDetectLikeButtons(self,like=True):
+      image = self.device.takeSnapshot()
+      height = 1750
+      heart_height = 37
+      heart_width = 39
+      sub_image = image.getSubImage((643,0,39,height))  #(643,0,39,height)
+      the_heart_image = heart if like else red_heart
+      sub_image.writeToFile("/Users/henry/Documents/GitHub/insta-chess-mobile/last-scan.png")
+      hits = []
+      for x in xrange(1,height-heart_height-1):
+        heart_test = sub_image.getSubImage((0,x,heart_width,heart_height))
+        if(heart_test.sameAs(the_heart_image, .9)):
+          hits.append(x)
+          x+=40
+      print "detected hits at" + str(hits)
+      return hits
+
+    def testTouchLikeButtons(self,likeOrUnlike=True,official=True):
+      heart_locations = self.testDetectLikeButtons(likeOrUnlike)
+      print "trying to touch"
+      #we return the lowest down heart location, or else the bottom of the scrollable area
+      return heart_locations if len(heart_locations)>0 else [900]#1342
+
     def touchLikeButtons(self,likeOrUnlike=True,official=True):
       heart_locations = self.detectLikeButtons(likeOrUnlike)
+      time.sleep(.1)
       for x in xrange(0,len(heart_locations)):
         if(official):
           self.touchPoint([str(self.heart_x_offset+20),str(heart_locations[x]+20)])
-          time.sleep(.1)
+          time.sleep(.2)
       #we return the lowest down heart location, or else the bottom of the scrollable area
       return heart_locations if len(heart_locations)>0 else [900]#1342
