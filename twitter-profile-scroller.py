@@ -1,7 +1,7 @@
 from twitterbot import Twitterbot
 import time
 import random
-bot = Twitterbot('FA7B71A02648',"pixel2",True) #FA79F1A04959
+bot = Twitterbot("pixel2",True) #FA79F1A04959
 scrolled = 0
 total = 0
 current_snapshot = None

@@ -1,6 +1,6 @@
-from twitterbot import Twitterbot
+from classes.instabot import Instabot
 import time
 import random
-bot = Twitterbot('FA7B71A02648',"pixel2",True) #FA79F1A04959
+bot = Instabot ("pixel2",True) #FA79F1A04959
 
-print bot.testTouchLikeButtons()
+print bot.touchLikeButtons(True,False)

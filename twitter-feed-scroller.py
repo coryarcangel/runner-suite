@@ -1,7 +1,7 @@
 from twitterbot import Twitterbot
 import time
 import random
-bot = Twitterbot('FA79F1A04959',"pixel2",True)
+bot = Twitterbot("pixel2",True)
 scrolled = 0
 total = 0
 reference = bot.device.takeSnapshot()

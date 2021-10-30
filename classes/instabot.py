@@ -1,15 +1,26 @@
 #
 #a general purpose instagram bot class that lets you do common instagram stuff.
 #
+from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice, MonkeyImage
 
 from device import device
 import random
 import time
 package = 'com.instagram.android'
 
+# Enter values found with utitilies/calibrate_like_buttons.py below!!
+CALIBRATE_LIKE_BUTTON_ICON_WIDTH = 63
+CALIBRATE_LIKE_BUTTON_ICON_HEIGHT = 57
+CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET = 37
+
 class Instabot(device):
-    def __init__(self,deviceId,model="pixel2", verbose=False):
-        super(Instabot,self).__init__(deviceId,model,verbose)
+    def __init__(self,model, verbose):
+        super(Instabot,self).__init__(model,verbose)
+        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/insta-like-unliked.png")
+        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/insta-like-liked.png")
+        self.heart_height = CALIBRATE_LIKE_BUTTON_ICON_HEIGHT
+        self.heart_width = CALIBRATE_LIKE_BUTTON_ICON_WIDTH
+        self.heart_x_offset = CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET
         self.tapLocations.update({
             "a30": {
               "search": (300, 2145),
@@ -49,9 +60,8 @@ class Instabot(device):
         })
         # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the process
         if(self.verbose):
-            print "Connected to device "+deviceId+"."
+            print "Connected to device "+self.deviceId+"."
         self.openInstagram()
-        print "wtffff"
 
     def openInstagram(self):
         activity = 'com.instagram.mainactivity.MainActivity'
@@ -133,7 +143,7 @@ class Instabot(device):
         if(target != 0):
             self.device.shell("input tap "+str(180+xOffset)+" "+str(target))
             return target
-            
+
     def scrollToNextPost(self,scrollAmt=None):
       self.scroll(scrollAmt if scrollAmt else 660,50,.35)
       image = self.device.takeSnapshot()
@@ -144,7 +154,7 @@ class Instabot(device):
       # snapshot of rightmost bar on screen, starting from the likely middle of current image.
       # we've scrolled down 400 which basically guarantees we have revealed the next post
       sub_image = image.getSubImage((1000,0,80,1600))
-      sub_image.writeToFile("/Users/vai/Projects/insta-chess-mobile/last-scan.png")
+      sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
       for x in xrange(0,1600):
         pixel = sub_image.getRawPixel(65,x)
         isWhite =  pixel[1] >= 254 and pixel[2] >= 254 and pixel[3] >= 254
@@ -168,3 +178,41 @@ class Instabot(device):
     def touchLikeButton(self):
         print "liked"
         return self.touchCommentButton(-60)
+
+    def detectLikeButtons(self,like=True,test=False):
+      image = self.device.takeSnapshot()
+      height = 1750
+      sub_image = image.getSubImage((self.heart_x_offset,0,self.heart_width,height))  #(643,0,39,height)
+      the_heart_image = self.heart if like else self.red_heart
+      if(not test):
+          sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
+      hits = []
+      for x in xrange(1,height-self.heart_height-1):
+        heart_test = sub_image.getSubImage((0,x,self.heart_width,self.heart_height))
+        if(heart_test.sameAs(the_heart_image, .8)):
+          hits.append(x)
+          x+=40
+      print "detected hits at" + str(hits)
+      return hits
+
+
+    def heartScreenshot(self,y):
+        image = self.device.takeSnapshot()
+        sub_image = image.getSubImage((self.heart_x_offset,y,self.heart_width,self.heart_height))  #(643,0,39,height)
+        sub_image.writeToFile(self.projectDirectory+"/data/insta-like-unliked.png")
+
+    def testTouchLikeButtons(self,likeOrUnlike=True,official=True):
+      heart_locations = self.testDetectLikeButtons(likeOrUnlike,official)
+      print "trying to touch"
+      #we return the lowest down heart location, or else the bottom of the scrollable area
+      return heart_locations if len(heart_locations)>0 else [900]#1342
+
+    def touchLikeButtons(self,likeOrUnlike=True,official=True):
+      heart_locations = self.detectLikeButtons(likeOrUnlike,official)
+      time.sleep(.1)
+      for x in xrange(0,len(heart_locations)):
+        if(official):
+          self.touchPoint([str(self.heart_x_offset+5),str(heart_locations[x]+5)])
+          time.sleep(.2)
+      #we return the lowest down heart location, or else the bottom of the scrollable area
+      return heart_locations if len(heart_locations)>0 else [900]#1342

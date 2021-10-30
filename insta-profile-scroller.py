@@ -2,7 +2,7 @@ from instabot import Instabot
 import time
 import random
 # FA7B71A02648
-bot = Instabot('FA79F1A04959',"pixel2",True)
+bot = Instabot("pixel2",True)
 
 shot1 = bot.device.takeSnapshot().getSubImage((0,0,100,100))
 shot2 = bot.device.takeSnapshot().getSubImage((100,100,200,200))

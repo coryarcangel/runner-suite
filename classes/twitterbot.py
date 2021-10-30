@@ -7,13 +7,20 @@ import random
 import time
 package = 'com.twitter.android'
 
-# TODO replace /Users/vai/Projects/
-heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/data/heart.png")
-red_heart = MonkeyRunner.loadImageFromFile("/Users/henry/Documents/GitHub/insta-chess-mobile/data/red-heart.png")
+# Enter values found with utitilies/calibrate_like_buttons.py below!!
+CALIBRATE_LIKE_BUTTON_ICON_HEIGHT = 37
+CALIBRATE_LIKE_BUTTON_ICON_WIDTH = 39
+CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET = 643
+
 
 class Twitterbot(device):
-    def __init__(self,deviceId,model="pixel2", verbose=False):
-        super(Twitterbot,self).__init__(deviceId,model,verbose)
+    def __init__(self,model,verbose):
+        super(Twitterbot,self).__init__(model,verbose)
+        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/twitter-like-unliked.png")
+        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/twitter-like-liked.png")
+        self.heart_height = CALIBRATE_LIKE_BUTTON_ICON_HEIGHT
+        self.heart_width = CALIBRATE_LIKE_BUTTON_ICON_WIDTH
+        self.heart_x_offset = CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET
         self.tapLocations.update({
             "a30": {
               "search": (300, 2145),
@@ -52,11 +59,9 @@ class Twitterbot(device):
         })
         # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the process
         if(self.verbose):
-            print "Connected to device "+deviceId+"."
+            print "Connected to device "+self.deviceId+"."
         self.openTwitter()
         print "connected to twitter"
-
-    heart_x_offset = 655
 
     def openTwitter(self):
         activity = 'com.twitter.app.main.MainActivity'
@@ -65,51 +70,35 @@ class Twitterbot(device):
         if(self.verbose):
             print "Started twitter."
 
-    def detectLikeButtons(self,like=True):
+    def detectLikeButtons(self,like=True,test=False):
       image = self.device.takeSnapshot()
       height = 1750
-      heart_height = 37
-      heart_width = 39
-      sub_image = image.getSubImage((643,0,39,height))  #(643,0,39,height)
-      the_heart_image = heart if like else red_heart
+      sub_image = image.getSubImage((self.heart_x_offset,0,self.heart_width,height))  #(643,0,39,height)
+      the_heart_image = self.heart if like else self.red_heart
+      if(not test):
+          sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
       hits = []
-      for x in xrange(1,height-heart_height-1):
-        heart_test = sub_image.getSubImage((0,x,heart_width,heart_height))
+      for x in xrange(1,height-self.heart_height-1):
+        heart_test = sub_image.getSubImage((0,x,self.heart_width,self.heart_height))
         if(heart_test.sameAs(the_heart_image, .9)):
           hits.append(x)
           x+=40
       print "detected hits at" + str(hits)
       return hits
 
-    def testDetectLikeButtons(self,like=True):
-      image = self.device.takeSnapshot()
-      height = 1750
-      heart_height = 37
-      heart_width = 39
-      sub_image = image.getSubImage((643,0,39,height))  #(643,0,39,height)
-      the_heart_image = heart if like else red_heart
-      sub_image.writeToFile("/Users/henry/Documents/GitHub/insta-chess-mobile/last-scan.png")
-      hits = []
-      for x in xrange(1,height-heart_height-1):
-        heart_test = sub_image.getSubImage((0,x,heart_width,heart_height))
-        if(heart_test.sameAs(the_heart_image, .9)):
-          hits.append(x)
-          x+=40
-      print "detected hits at" + str(hits)
-      return hits
 
     def testTouchLikeButtons(self,likeOrUnlike=True,official=True):
-      heart_locations = self.testDetectLikeButtons(likeOrUnlike)
+      heart_locations = self.testDetectLikeButtons(likeOrUnlike,official)
       print "trying to touch"
       #we return the lowest down heart location, or else the bottom of the scrollable area
       return heart_locations if len(heart_locations)>0 else [900]#1342
 
     def touchLikeButtons(self,likeOrUnlike=True,official=True):
-      heart_locations = self.detectLikeButtons(likeOrUnlike)
+      heart_locations = self.detectLikeButtons(likeOrUnlike,official)
       time.sleep(.1)
       for x in xrange(0,len(heart_locations)):
         if(official):
-          self.touchPoint([str(self.heart_x_offset+20),str(heart_locations[x]+20)])
+          self.touchPoint([str(self.heart_x_offset+5),str(heart_locations[x]+5)])
           time.sleep(.2)
       #we return the lowest down heart location, or else the bottom of the scrollable area
       return heart_locations if len(heart_locations)>0 else [900]#1342

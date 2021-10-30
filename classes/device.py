@@ -9,18 +9,22 @@ import sys
 import random
 import signal
 import subprocess
+from config import Config
+
+cfg = Config()
 
 class device(object):
-    def __init__(self,deviceId,model="pixel2", verbose=False):
-        self.deviceId = deviceId
+    def __init__(self,model="pixel2", verbose=False):
+        self.deviceId = cfg.deviceId
         self.model = model
         self.verbose = verbose
-        self.device = MonkeyRunner.waitForConnection(3000,deviceId)
+        self.device = MonkeyRunner.waitForConnection(3000,cfg.deviceId)
         self.tapLocations =  {}
+        self.projectDirectory = cfg.projectDirectory
         # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the this process
         signal.signal(signal.SIGINT, self.exitGracefully)
         if(self.verbose):
-            print "Connected to device "+deviceId+"."
+            print "Connected to device "+cfg.deviceId+"."
 
     def touch(self,name, touchType="DOWN_AND_UP"):
         self.device.shell("input tap "+str(self.tapLocations[self.model][name][0])+" "+str(self.tapLocations[self.model][name][1]))
