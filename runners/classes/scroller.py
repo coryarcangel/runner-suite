@@ -28,31 +28,25 @@ def getImageSize(img):
 
 class Scroller(device):
     def __init__(self,options):
-        print(options)
-        super(Instabot,self).__init__(options)
+        super(Scroller,self).__init__(options)
+        self.DELAY_BEFORE_LIKE = 3
+        self.SCROLL_BELOW_LIKE = 100
+        self.DELAY_AFTER_LIKE = 4.5
+        self.SCROLL_ON_NOT_FOUND = (800,300)
+        self.SCROLL_DURATION_AFTER_LIKE = 1
+        self.SCROLL_DURATION_AFTER_NO_LIKE = 1
+        self.MAX_ATTEMPTS = 1000
         for key, value in options.iteritems():
             setattr(self, key, value)
-
-        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.like)
-        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.unlike)
+        if(self.verbose):
+            print("Scrolling with these options",options)
+        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.unliked)
+        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.liked)
         heart_size = getImageSize(self.heart)
         self.heart_width = heart_size[0]
         self.heart_height = heart_size[1]
         self.heart_x_offset = self.like_X_offset
         self.tapLocations.update({
-            "a30": {
-              "search": (300, 2145),
-              "typeBar": (300, 151),
-              "searchClear": (1003,149),
-              "firstResult": (545,450),
-              "firstPost" : (200,1050),
-              "postComment": (180,1590),
-              "submitComment": (983,1287),
-              "backToProfile": (65,150),
-              "writeComment":(290,1260),
-              "notification": (757,2140),
-              "firstNotification": (990,587)
-            },
             "pixel2" : {
               "search": (319, 1732),
               "typeBar": (300, 127),
@@ -76,55 +70,48 @@ class Scroller(device):
               "forceBack":(275,1870)
             }
         })
-
-    def scrollToNextPost(self,scrollAmt=None):
-      self.scroll(scrollAmt if scrollAmt else 660,50,.35)
-      image = self.device.takeSnapshot()
-      final = 0
-      whiteJustEnded = False
-      whiteStreak = 0
-      maxWhiteStreak = 0
-      # snapshot of rightmost bar on screen, starting from the likely middle of current image.
-      # we've scrolled down 400 which basically guarantees we have revealed the next post
-      sub_image = image.getSubImage((1000,0,80,1600))
-      sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
-      for x in xrange(0,1600):
-        pixel = sub_image.getRawPixel(65,x)
-        isWhite =  pixel[1] >= 254 and pixel[2] >= 254 and pixel[3] >= 254
-        # debug line
-        # print "y: "+ str(x) + ", " + str(pixel) + "is white: "+str(isWhite) + ", white streak: "+str(whiteStreak)
-        if(whiteStreak > 450 and isWhite == False):
-          final = x
-        if(whiteStreak > maxWhiteStreak):
-          maxWhiteStreak = whiteStreak
-        if(isWhite == False):
-          whiteStreak = 0
-        else:
-          whiteStreak = whiteStreak + 1
-      # scroll the rest of the way
-      if(final == 0 and whiteStreak > 450):
-        self.scrollToNextPost(200)
-      print "whiteStreak"+str(maxWhiteStreak)
-      self.scroll(final-210,0)
-      return final
-
-    def touchLikeButton(self):
-        print "liked"
-        return self.touchCommentButton(-60)
+        self.scrollAndLike()
 
     def detectLikeButtons(self,like=True,test=False):
       image = self.device.takeSnapshot()
       height = 1750
       sub_image = image.getSubImage((self.heart_x_offset,0,self.heart_width,height))  #(643,0,39,height)
       the_heart_image = self.heart if like else self.red_heart
-      if(not test):
-          sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
+      sub_image.writeToFile(self.projectDirectory+"/data/last-scan.png")
       hits = []
-      for y in xrange(1,height-self.heart_height-1):
-        heart_test = sub_image.getSubImage((0,y,self.heart_width,self.heart_height))
-        if(heart_test.sameAs(the_heart_image, .8)):
-          hits.append(y)
-          y+=4
-      print "detected hits at" + str(hits)
+      for x in xrange(1,height-self.heart_height-1):
+        heart_test = sub_image.getSubImage((0,x,self.heart_width,self.heart_height))
+        # heart_test.writeToFile(self.projectDirectory+"/data/heart-test-"+str(x)+".png")
+        if(heart_test.sameAs(the_heart_image, .9)):
+          hits.append(x)
+          x+=self.heart_height
       return hits
+
+    def touchLikeButtons(self,likeOrUnlike=True,official=True):
+      heart_locations = self.detectLikeButtons(likeOrUnlike,official)
+      time.sleep(.1)
+      for x in xrange(0,len(heart_locations)):
+        if(official):
+          self.touchPoint([str(self.heart_x_offset+5),str(heart_locations[x]+5)])
+          time.sleep(.2)
+      #we return the lowest down heart location, or else the bottom of the scrollable area
+      return heart_locations[len(heart_locations)-1] if len(heart_locations)>0 else None#1342
+
+    def scrollAndLike(self):
+     counter = 0
+     # if we can make it to the end
+     while (counter < self.MAX_ATTEMPTS):
+     	time.sleep(self.DELAY_BEFORE_LIKE)
+     	lastLike = self.touchLikeButtons()
+        print "last like: y=",lastLike
+        time.sleep(self.DELAY_AFTER_LIKE)
+        if(lastLike):
+            self.scroll(lastLike+self.SCROLL_BELOW_LIKE,0,self.SCROLL_DURATION_AFTER_LIKE)
+        else:
+            self.scroll(self.SCROLL_ON_NOT_FOUND[0],self.SCROLL_ON_NOT_FOUND[1],self.SCROLL_DURATION_AFTER_NO_LIKE)
+     	print "Counter: ",counter
+     	counter = counter + 1
+
+     self.scroll(300,800,.1)
+     self.touch("backToTopPost")
 

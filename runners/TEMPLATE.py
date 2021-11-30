@@ -2,8 +2,8 @@ from classes.scroller import Scroller
 
 config = dict(
     model= "pixel2",
-	unliked= "/data/insta-like-unliked.png",
-	liked= "/data/insta-like-liked.png",
+	unliked= "/data/found-with-imagefinder.png",
+	liked= "/data/found-with-imagefinder-liked.png",
 	like_X_offset=37,
 	DELAY_BEFORE_LIKE=3,
 	SCROLL_BELOW_LIKE=100,
