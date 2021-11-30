@@ -57,9 +57,6 @@ class Twitterbot(device):
               "forceBack":(275,1870)
             }
         })
-        # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the process
-        if(self.verbose):
-            print "Connected to device "+self.deviceId+"."
         self.openTwitter()
         print "connected to twitter"
 

@@ -1,0 +1,1 @@
+python utilities/setup.py > classes/config.py

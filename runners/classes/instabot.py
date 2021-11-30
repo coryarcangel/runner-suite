@@ -8,19 +8,38 @@ import random
 import time
 package = 'com.instagram.android'
 
-# Enter values found with utitilies/calibrate_like_buttons.py below!!
-CALIBRATE_LIKE_BUTTON_ICON_WIDTH = 63
-CALIBRATE_LIKE_BUTTON_ICON_HEIGHT = 57
-CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET = 37
+def getImageSize(img):
+    foundX = False
+    foundY = False
+    x = 0
+    y = 0
+    while foundX == False:
+    	try:
+    		x = x+1
+    		img.getRawPixel(x,0)
+    	except:
+    		foundX = True
+    while foundY == False:
+    	try:
+    		y = y+1
+    		img.getRawPixel(0,y)
+    	except:
+    		foundY = True
+    return [x,y]
 
 class Instabot(device):
-    def __init__(self,model, verbose):
-        super(Instabot,self).__init__(model,verbose)
-        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/insta-like-unliked.png")
-        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+"/data/insta-like-liked.png")
-        self.heart_height = CALIBRATE_LIKE_BUTTON_ICON_HEIGHT
-        self.heart_width = CALIBRATE_LIKE_BUTTON_ICON_WIDTH
-        self.heart_x_offset = CALIBRATE_LIKE_BUTTON_ICON_X_OFFSET
+    def __init__(self,options):
+        print(options)
+        super(Instabot,self).__init__(options)
+        for key, value in options.iteritems():
+            setattr(self, key, value)
+
+        self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.like)
+        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.unlike)
+        heart_size = getImageSize(self.heart)
+        self.heart_width = heart_size[0]
+        self.heart_height = heart_size[1]
+        self.heart_x_offset = self.like_X_offset
         self.tapLocations.update({
             "a30": {
               "search": (300, 2145),
@@ -58,9 +77,6 @@ class Instabot(device):
               "forceBack":(275,1870)
             }
         })
-        # when ctrl + c is used in the terminal, remove monkey processes on the phones before ending the process
-        if(self.verbose):
-            print "Connected to device "+self.deviceId+"."
         self.openInstagram()
 
     def openInstagram(self):

@@ -1,4 +1,4 @@
-from twitterbot import Twitterbot
+from classes.twitterbot import Twitterbot
 import time
 import random
 bot = Twitterbot("pixel2",True) #FA79F1A04959
