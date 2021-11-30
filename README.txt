@@ -20,23 +20,21 @@ https://www.microfocus.com/documentation/silk-test/205/en/silktestclassic-help-e
 5) Plug in phone(s). Open a terminal and type adb devices. You should see something like the following
 
 R28M421MT5B	device
-R28M421N22Y	device
 
-These are the codes you will have to swap into the various programs included in this code suite.
+6) Only needed once, run ./setup.sh in the terminal. This will tell monkeyrunner our device ID and project folder!
 
-6) This means our phones are connected and we can run our script! Navigate to the code folder in terminal and type monkeyrunner insta-chess-runner.py
+To make a runner (for Tik Tok in this example):
 
-File descriptions:
-utilities
-A couple useful programs for handling recordings and debugging
-device.py
-The Device class with functions to do most actions we need on the device. Every python file relies on this class.
-insta-chess-runner.py
-Run with monkeyrunner insta-chess-runner.py. Performs an instagram chess match with two connected devices.
-insta-profile-scroller.py
-Run with monkeyrunner insta-profile-scroller.py. Scrolls down a single profile(finite) and likes every post.
-instabot.py
-twitter-feed-scroller.py
-Run with monkeyrunner twitter-feed-scroller.py. Scrolls down a feed (infinite) and likes every post.
-twitter-profile-scroller.py
-twitterbot.py
+1) Copy runners/TEMPLATE.py to a new file like tiktok-2021.py.
+2) Use the image finder script to isolate a like button:
+  monkeyrunner imagefinder.py.
+3) When you've isolated the like button, rename the liked button image to something like tiktok-like.png. Also make note of the X offset used.
+4) Fill out the variables in tiktok-2021.py.
+5) Run monkeyrunner runners/tiktok-2021.py.
+You should see some liking!!!!
+
+To record a runner:
+1) Install AZ Screen Recorder. Open it and start a recording.
+2) Perform your runner to your liking.
+3) Stop the recording in AZ Screen Recorder. Rotate so top is facing left. Export and make a note of the filename.
+4) Use the filename in utilities/copy_file.sh to copy the video directly to your computer!
