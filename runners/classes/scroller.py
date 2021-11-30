@@ -36,16 +36,19 @@ class Scroller(device):
         self.SCROLL_DURATION_AFTER_LIKE = 1
         self.SCROLL_DURATION_AFTER_NO_LIKE = 1
         self.MAX_ATTEMPTS = 1000
+        self.UNLIKE = False
         for key, value in options.iteritems():
             setattr(self, key, value)
         if(self.verbose):
             print("Scrolling with these options",options)
         self.heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.unliked)
-        self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.liked)
         heart_size = getImageSize(self.heart)
         self.heart_width = heart_size[0]
         self.heart_height = heart_size[1]
         self.heart_x_offset = self.like_X_offset
+        self.LIKE_MODE = not self.UNLIKE
+        if not self.LIKE_MODE:
+            self.red_heart = MonkeyRunner.loadImageFromFile(self.projectDirectory+self.liked)
         self.tapLocations.update({
             "pixel2" : {
               "search": (319, 1732),
@@ -102,14 +105,16 @@ class Scroller(device):
      # if we can make it to the end
      while (counter < self.MAX_ATTEMPTS):
      	time.sleep(self.DELAY_BEFORE_LIKE)
-     	lastLike = self.touchLikeButtons()
-        print "last like: y=",lastLike
+     	lastLike = self.touchLikeButtons(self.LIKE_MODE)
+        if(self.verbose):
+            print "last like: y=",lastLike
         time.sleep(self.DELAY_AFTER_LIKE)
         if(lastLike):
             self.scroll(lastLike+self.SCROLL_BELOW_LIKE,0,self.SCROLL_DURATION_AFTER_LIKE)
         else:
             self.scroll(self.SCROLL_ON_NOT_FOUND[0],self.SCROLL_ON_NOT_FOUND[1],self.SCROLL_DURATION_AFTER_NO_LIKE)
-     	print "Counter: ",counter
+        if(self.verbose):
+            print "Counter: ",counter
      	counter = counter + 1
 
      self.scroll(300,800,.1)
