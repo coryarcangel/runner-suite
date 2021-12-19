@@ -100,6 +100,7 @@ class Scroller(device):
       #we return the lowest down heart location, or else the bottom of the scrollable area
       return heart_locations[len(heart_locations)-1] if len(heart_locations)>0 else None#1342
 
+    #main loop
     def scrollAndLike(self):
      counter = 0
      # if we can make it to the end
@@ -119,4 +120,3 @@ class Scroller(device):
 
      self.scroll(300,800,.1)
      self.touch("backToTopPost")
-
